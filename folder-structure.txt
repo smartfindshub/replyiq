@@ -1,0 +1,107 @@
+replyiq/
+├── .editorconfig
+├── .gitignore
+├── .prettierrc
+├── .prettierignore
+├── eslint.config.ts
+├── folder-structure.txt
+├── package.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── README.md
+├── tsconfig.base.json
+├── tsconfig.node.json
+├── tsconfig.react.json
+├── turbo.json
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── apps/
+│   ├── api/
+│   │   ├── .env
+│   │   ├── .env.example
+│   │   ├── node_modules/              <-- installed dependencies
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   └── src/
+│   │       └── main.ts
+│   ├── web/
+│   │   ├── .env.local
+│   │   ├── .env.example
+│   │   ├── node_modules/              <-- installed dependencies
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   └── src/
+│   │       └── main.tsx
+│   └── widget/
+│       ├── .env.local
+│       ├── .env.example
+│       ├── node_modules/              <-- installed dependencies
+│       ├── package.json
+│       ├── tsconfig.json
+│       └── src/
+│           └── main.tsx
+├── docs/
+│   ├── ai/
+│   ├── api/
+│   ├── database/
+│   ├── devops/
+│   ├── product-design/
+│   │   └── (empty)
+│   ├── product-discovery/
+│   │   ├── ReplyIQ_PRD_v1.0.docx
+│   │   └── ReplyIQ_Product_Discovery_v0.1.docx
+│   ├── roadmap/
+│   └── system-design/
+├── packages/
+│   ├── ai-sdk/
+│   │   ├── node_modules/              <-- installed dependencies
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   └── src/
+│   │       └── index.ts
+│   ├── config/
+│   │   ├── node_modules/              <-- installed dependencies
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   ├── src/
+│   │   │   └── index.ts
+│   │   ├── eslint/
+│   │   │   └── index.ts
+│   │   ├── prettier/
+│   │   │   └── index.ts
+│   │   ├── typescript/
+│   │   │   └── (shared tsconfigs at root)
+│   │   └── tailwind/
+│   │       └── index.ts
+│   ├── core/
+│   │   ├── node_modules/              <-- installed dependencies
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   └── src/
+│   │       └── index.ts
+│   ├── database/
+│   │   ├── node_modules/              <-- installed dependencies
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   └── src/
+│   │       └── index.ts
+│   ├── types/
+│   │   ├── node_modules/              <-- installed dependencies
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   └── src/
+│   │       └── index.ts
+│   ├── ui/
+│   │   ├── node_modules/              <-- installed dependencies
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   └── src/
+│   │       └── index.ts
+│   └── utils/
+│       ├── node_modules/              <-- installed dependencies
+│       ├── package.json
+│       ├── tsconfig.json
+│       └── src/
+│           └── index.ts
+└── node_modules/                      <-- root installed dependencies

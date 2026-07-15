@@ -1,0 +1,21 @@
+{
+  "name": "@replyiq/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "dev": "echo 'Scaffold Vite + React first'",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "dependencies": {
+    "@replyiq/types": "workspace:*",
+    "@replyiq/ui": "workspace:*",
+    "@replyiq/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
