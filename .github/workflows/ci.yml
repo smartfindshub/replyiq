@@ -35,6 +35,7 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @replyiq/database db:generate
       - run: pnpm typecheck
 
   build:
@@ -48,4 +49,5 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @replyiq/database db:generate
       - run: pnpm build
