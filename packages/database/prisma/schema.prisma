@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ──────────────────────────────────────────────
+// Enums
+// ──────────────────────────────────────────────
+
+enum OrganizationStatus {
+  ACTIVE
+  SUSPENDED
+  ARCHIVED
+}
+
+enum BusinessStatus {
+  DRAFT
+  ACTIVE
+  SUSPENDED
+  ARCHIVED
+}
+
+enum UserRole {
+  OWNER
+  ADMIN
+  MANAGER
+}
+
+enum UserStatus {
+  ACTIVE
+  INVITED
+  DISABLED
+}
+
+enum BusinessDomainStatus {
+  PENDING
+  VERIFIED
+  DISABLED
+}
+
+// ──────────────────────────────────────────────
+// Models
+// ──────────────────────────────────────────────
+
+model Organization {
+  id        String             @id @default(uuid()) @db.Uuid
+  name      String             @db.VarChar(150)
+  status    OrganizationStatus @default(ACTIVE)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  deletedAt DateTime?
+
+  users      User[]
+  businesses Business[]
+
+  @@index([status])
+  @@map("organizations")
+}
+
+model User {
+  id             String     @id @default(uuid()) @db.Uuid
+  organizationId String     @db.Uuid
+  name           String     @db.VarChar(150)
+  email          String     @db.VarChar(320)
+  role           UserRole   @default(MANAGER)
+  status         UserStatus @default(ACTIVE)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  deletedAt      DateTime?
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@unique([email])
+  @@index([organizationId])
+  @@index([status])
+  @@map("users")
+}
+
+model Business {
+  id             String         @id @default(uuid()) @db.Uuid
+  organizationId String         @db.Uuid
+  name           String         @db.VarChar(200)
+  industry       String?        @db.VarChar(100)
+  status         BusinessStatus @default(DRAFT)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  deletedAt      DateTime?
+
+  organization Organization    @relation(fields: [organizationId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  domains      BusinessDomain[]
+
+  @@index([organizationId])
+  @@index([status])
+  @@map("businesses")
+}
+
+model BusinessDomain {
+  id                String               @id @default(uuid()) @db.Uuid
+  businessId        String               @db.Uuid
+  domain            String               @db.VarChar(255)
+  isPrimary         Boolean              @default(false)
+  status            BusinessDomainStatus @default(PENDING)
+  verifiedAt        DateTime?
+  verificationToken String?              @db.VarChar(255)
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+  deletedAt         DateTime?
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@unique([domain])
+  @@index([businessId])
+  @@index([status])
+  @@map("business_domains")
+}
