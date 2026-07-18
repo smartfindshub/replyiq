@@ -5,6 +5,7 @@ export type {
   User,
   Business,
   BusinessDomain,
+  Session,
   OrganizationStatus,
   BusinessStatus,
   UserRole,

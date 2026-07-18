@@ -140,8 +140,18 @@ export class WorkspaceProvisioningService {
 
     const [accessToken, refreshToken] = await Promise.all([
       this.tokenService.generateAccessToken(payload),
-      this.tokenService.generateRefreshToken(payload),
+      this.tokenService.generateRefreshToken({ sub: user.id, sessionId }),
     ]);
+
+    const refreshTokenHash = await this.passwordService.hash(refreshToken);
+    const expiresAt = this.getRefreshTokenExpiresAt();
+
+    await this.sessionService.createSession(
+      sessionId,
+      user.id,
+      refreshTokenHash,
+      expiresAt,
+    );
 
     const expiresIn = this.getAccessTokenExpiresInSeconds();
 
@@ -151,6 +161,12 @@ export class WorkspaceProvisioningService {
       business: { id: business.id, name: business.name },
       organization: { id: organization.id, name: organization.name },
     };
+  }
+
+  private getRefreshTokenExpiresAt(): Date {
+    const ttl = this.configService.get<string>('jwt.refreshTokenTtl', '30d');
+    const seconds = this.parseTtlToSeconds(ttl);
+    return new Date(Date.now() + seconds * 1000);
   }
 
   private getAccessTokenExpiresInSeconds(): number {

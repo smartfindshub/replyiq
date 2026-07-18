@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import type { StringValue } from 'ms';
 import type { JwtPayload } from '../types/jwt-payload.interface.js';
+import type { RefreshTokenPayload } from '../types/refresh-token-payload.interface.js';
 
 @Injectable()
 export class TokenService {
@@ -20,7 +21,7 @@ export class TokenService {
     });
   }
 
-  async generateRefreshToken(payload: JwtPayload): Promise<string> {
+  async generateRefreshToken(payload: RefreshTokenPayload): Promise<string> {
     const secret = this.configService.get<string>('jwt.refreshSecret');
     const ttl = this.configService.get<string>('jwt.refreshTokenTtl', '30d');
     return this.jwtService.signAsync(payload, {
@@ -35,7 +36,7 @@ export class TokenService {
     return this.jwtService.verifyAsync<T>(token);
   }
 
-  async verifyRefreshToken<T extends JwtPayload = JwtPayload>(
+  async verifyRefreshToken<T extends RefreshTokenPayload = RefreshTokenPayload>(
     token: string,
   ): Promise<T> {
     const secret = this.configService.get<string>('jwt.refreshSecret');

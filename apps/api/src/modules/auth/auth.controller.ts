@@ -4,11 +4,13 @@ import { WorkspaceProvisioningService } from './workspace-provisioning.service.j
 import type { RegisterWorkspaceResponse } from './workspace-provisioning.service.js';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports -- value imports required for emitDecoratorMetadata DI
 import { AuthService } from './auth.service.js';
-import type { LoginResponse } from './auth.service.js';
+import type { LoginResponse, RefreshResponse } from './auth.service.js';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports -- value imports required for emitDecoratorMetadata DI
 import { RegisterWorkspaceDto } from './dto/register-workspace.dto.js';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports -- value imports required for emitDecoratorMetadata DI
 import { LoginDto } from './dto/login.dto.js';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports -- value imports required for emitDecoratorMetadata DI
+import { RefreshTokenDto } from './dto/refresh-token.dto.js';
 
 @Controller('auth')
 export class AuthController {
@@ -29,5 +31,11 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   login(@Body() dto: LoginDto): Promise<LoginResponse> {
     return this.authService.login(dto);
+  }
+
+  @Post('refresh')
+  @HttpCode(HttpStatus.OK)
+  refresh(@Body() dto: RefreshTokenDto): Promise<RefreshResponse> {
+    return this.authService.refresh(dto);
   }
 }
