@@ -27,10 +27,11 @@
     "db:reset": "prisma migrate reset"
   },
   "prisma": {
-    "seed": "tsx prisma/seed.ts"
+    "seed": "tsx --tsconfig tsconfig.seed.json prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "^6.6.0"
+    "@prisma/client": "^6.6.0",
+    "argon2": "^0.44.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

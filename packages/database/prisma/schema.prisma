@@ -66,6 +66,7 @@ model User {
   organizationId String     @db.Uuid
   name           String     @db.VarChar(150)
   email          String     @db.VarChar(320)
+  passwordHash   String     @db.VarChar(255)
   role           UserRole   @default(MANAGER)
   status         UserStatus @default(ACTIVE)
   createdAt      DateTime   @default(now())

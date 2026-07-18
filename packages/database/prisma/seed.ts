@@ -1,3 +1,5 @@
+/// <reference types="node" />
+import { hash } from 'argon2';
 import { PrismaClient, OrganizationStatus, UserRole, UserStatus, BusinessStatus, BusinessDomainStatus } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -13,6 +15,7 @@ async function main() {
     },
   });
 
+  const passwordHash = await hash('Password@123');
   const owner = await prisma.user.upsert({
     where: { email: 'jan@replyiq.com' },
     update: {},
@@ -23,6 +26,7 @@ async function main() {
       email: 'jan@replyiq.com',
       role: UserRole.OWNER,
       status: UserStatus.ACTIVE,
+      passwordHash,
     },
   });
 

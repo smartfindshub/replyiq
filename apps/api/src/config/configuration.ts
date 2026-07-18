@@ -1,0 +1,13 @@
+export default () => ({
+  port: parseInt(process.env.PORT ?? '3000', 10),
+  nodeEnv: process.env.NODE_ENV ?? 'development',
+  database: {
+    url: process.env.DATABASE_URL,
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET ?? '',
+    refreshSecret: process.env.JWT_REFRESH_SECRET ?? '',
+    accessTokenTtl: process.env.ACCESS_TOKEN_TTL ?? '15m',
+    refreshTokenTtl: process.env.REFRESH_TOKEN_TTL ?? '30d',
+  },
+});
